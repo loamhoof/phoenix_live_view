@@ -26,6 +26,8 @@ function liveViewDOM() {
       <label for="plus">Plus</label>
       <input id="plus" value="1" name="increment" />
       <input type="checkbox" phx-click="toggle_me" />
+      <textarea></textarea>
+      <select></select>
       <button phx-click="inc_temperature">Inc Temperature</button>
     </form>
   `
@@ -239,7 +241,7 @@ describe("View + DOM", function() {
   })
 
   test("submitForm", function() {
-    expect.assertions(7)
+    expect.assertions(9)
 
     let liveSocket = new LiveSocket("/live", Socket)
     let el = liveViewDOM()
@@ -263,6 +265,8 @@ describe("View + DOM", function() {
     expect(form.classList.contains("phx-submit-loading")).toBeTruthy()
     expect(form.querySelector("button").dataset.phxDisabled).toBeTruthy()
     expect(form.querySelector("input").dataset.phxReadonly).toBeTruthy()
+    expect(form.querySelector("textarea").dataset.phxReadonly).toBeTruthy()
+    expect(form.querySelector("select").classList.contains("phx-submit-loading")).toBeTruthy()
   })
 
   test("empty diff undoes refs and pending attributes", () => {
